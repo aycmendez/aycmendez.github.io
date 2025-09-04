@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Catering Business</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="nav-grid">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="LOGO.png" alt="Coronita Events Logo" class="logo">
+            </a>
+        </div>
+
+
+        <div class="nav-left">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <section id="slideshow2">
+        <div class="slider-container" id="slider1">
+            <div class="slider">
+                <img class="slide fade" src="wood.JPG" alt="Catering Image 1">
+                <img class="slide fade" src="pinkflower.JPG" alt="Catering Image 3">
+                <img class="slide fade" src="outsidewhite.JPG" alt="Catering Image 1">
+                <img class="slide fade" src="image3.jpeg" alt="Catering Image 3">
+                <img class="slide fade" src="gold1.JPG" alt="Catering Image 3">
+
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery_intro">
+        <div class="box2">
+            <h2>Gallery</h2>
+            <p>No matter the occasion, Coronita'events conjures your dream event into reality</p>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="gallery-grid">
+            <img src="wood.JPG" alt="Dish 1" class="gallery-item" data-caption="Delicious Dish 1" loading="lazy">
+            <img src="pink1.JPG" alt="Dish 2" class="gallery-item" data-caption="Tasty Dish 2" loading="lazy">
+            <img src="pink2.JPG" alt="Dish 3" class="gallery-item" data-caption="Savory Dish 3" loading="lazy">
+            <img src="pink3.JPG" alt="Dish 4" class="gallery-item" data-caption="Flavorful Dish 4" loading="lazy">
+            <img src="wheel.JPG" alt="Dish 5" class="gallery-item" data-caption="Spicy Dish 5" loading="lazy">
+            <img src="toppings.JPG" alt="Dish 6" class="gallery-item" data-caption="Fresh Dish 6" loading="lazy">
+            <img src="pinkflower.JPG" alt="Dish 7" class="gallery-item" data-caption="Flavorful Dish 7" loading="lazy">
+            <img src="peach.JPG" alt="Dish 8" class="gallery-item" data-caption="Spicy Dish 8" loading="lazy">
+            <img src="outsidewhite.JPG" alt="Dish 9" class="gallery-item" data-caption="Fresh Dish 9" loading="lazy">
+            <img src="outside.JPG" alt="Dish 10" class="gallery-item" data-caption="Flavorful Dish 10" loading="lazy">
+            <img src="orange.JPG" alt="Dish 11" class="gallery-item" data-caption="Spicy Dish 11" loading="lazy">
+            <img src="fire.JPG" alt="Dish 12" class="gallery-item" data-caption="Fresh Dish 12" loading="lazy">
+            <img src="flower.JPG" alt="Dish 13" class="gallery-item" data-caption="Flavorful Dish 13" loading="lazy">
+            <img src="flower2.JPG" alt="Dish 14" class="gallery-item" data-caption="Spicy Dish 14" loading="lazy">
+            <img src="anita.JPG" alt="Dish 15" class="gallery-item" data-caption="Fresh Dish 15" loading="lazy">
+            <img src="gold1.JPG" alt="Dish 16" class="gallery-item" data-caption="Flavorful Dish 16" loading="lazy">
+            <img src="blue1.JPG" alt="Dish 17" class="gallery-item" data-caption="Spicy Dish 17" loading="lazy">
+            <img src="blue.JPG" alt="Dish 18" class="gallery-item" data-caption="Fresh Dish 18" loading="lazy">
+            <img src="cream.JPG" alt="Dish 19" class="gallery-item" data-caption="Flavorful Dish 19" loading="lazy">
+            <img src="flower.JPG" alt="Dish 20" class="gallery-item" data-caption="Spicy Dish 20" loading="lazy">
+    </section>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <span class="arrow left-arrow">&#10094;</span>
+        <div class="lightbox-content">
+            <img id="lightbox-img" class="lightbox-img">
+            <p id="lightbox-caption" class="lightbox-caption"></p>
+        </div>
+        <span class="arrow right-arrow">&#10095;</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const galleryImages = Array.from(document.querySelectorAll('.gallery-item'));
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            const closeBtn = document.querySelector('.close');
+            const leftArrow = document.querySelector('.left-arrow');
+            const rightArrow = document.querySelector('.right-arrow');
+            let currentIndex = 0;
+
+            galleryImages.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    console.log('Image clicked', index); // Debugging
+                    currentIndex = index;
+                    showImage();
+                });
+            });
+
+            closeBtn.addEventListener('click', closeLightbox);
+            leftArrow.addEventListener('click', prevImage);
+            rightArrow.addEventListener('click', nextImage);
+
+            function showImage() {
+                const img = galleryImages[currentIndex];
+                lightboxImg.src = img.src;
+                lightboxCaption.textContent = img.dataset.caption || img.alt || '';
+                lightbox.classList.add('show');
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('show');
+                setTimeout(() => {
+                    lightboxImg.src = '';
+                    lightboxCaption.textContent = '';
+                }, 400); // Match CSS transition duration
+            }
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % galleryImages.length;
+                showImage();
+            }
+
+            function prevImage() {
+                currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+                showImage();
+            }
+
+            document.addEventListener('keydown', function (e) {
+                if (!lightbox.classList.contains('show')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'ArrowLeft') prevImage();
+            });
+        });
+    </script>
+    <script src="scripts.js"></script>
+</body>
+
+</html>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-info">
+            <div class="footer-item">
+                <span class="footer-icon">Facebook: Coronita's Events</span>
+            </div>
+            <div class="footer-item">
+                <span class="footer-icon">Instagram: @coronitaEvents</span>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 <strong>Coronita's Events</strong> / Site design: Abdiel M</p>
+    </div>
+</footer>
+
+</html>
